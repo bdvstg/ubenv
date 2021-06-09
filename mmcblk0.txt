@@ -1,0 +1,25 @@
+baudrate=115200
+bootargs_base=setenv bootargs console=ttymxc2,115200
+bootargs_mmc=setenv bootargs ${bootargs} root=/dev/mmcblk0p1 rootwait rw video=mxcfb1:dev=ldb,LDB-XGA,if=RGB666 video=mxcfb0:dev=hdmi,1920x1080M@60,if=RGB24 use_calibration
+bootargs_nfs=setenv bootargs ${bootargs} root=/dev/nfs ip=dhcp nfsroot=${serverip}:${nfsroot},v3,tcp
+bootcmd=run bootcmd_mmc
+bootcmd_mmc=run bootargs_base bootargs_mmc; mmc dev 3; mmc read ${loadaddr} 0x800 0x2300; bootm
+bootcmd_net=run bootargs_base bootargs_nfs; tftpboot ${loadaddr} ${kernel}; bootm
+bootdelay=1
+ethact=FEC0
+ethprime=FEC0
+ipaddr=192.168.1.103
+kernel=uImage
+loadaddr=0x10800000
+netdev=eth0
+netmask=255.255.255.0
+nfsroot=/opt/eldk/arm
+rd_loadaddr=(0x1300000)
+serverip=192.168.1.101
+stderr=serial
+stdin=serial
+stdout=serial
+uboot=u-boot.bin
+aaa=ccc
+ssss=aaaaaa=sdsfsdf=sdfsdewart=gnsfgn
+ddddd=ewrdsfbsdfgfS_SDGsgfg_fdzgzdfg-zfgzdfg-zfdgzdfgzdfg

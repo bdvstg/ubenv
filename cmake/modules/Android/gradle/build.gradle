@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.2+'
+    }
+}
+
+apply plugin: 'com.android.@ARTIFACT_TYPE@'
+
+android {
+    compileSdkVersion 'android-17'
+    buildToolsVersion '23.0.1'
+
+    repositories {
+        flatDir {
+            @REPOSITORIES@
+        }
+    }
+
+    dependencies {
+        @DEPENDENCIES@
+    }
+
+    sourceSets {
+        main {
+            @SOURCE_SETS_MAIN@
+        }
+    }
+
+    archivesBaseName = "@ARCHIVES_BASE_NAME@"
+
+    @ARTIFACT_TYPE@Variants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if ( outputFile != null &&
+                 outputFile.name.endsWith( ".@ARTIFACT_SUFFIX@" ) ) {
+                 def fileName = "${archivesBaseName}.@ARTIFACT_SUFFIX@"
+                 output.outputFile = new File( outputFile.parent, fileName )
+            }
+        }
+    }
+}
